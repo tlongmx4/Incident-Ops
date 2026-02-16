@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app.db.session import engine
 from app.db.base import Base
+from app.api.routes import users, incidents
+
 
 app = FastAPI(title="Incident Ops API", version="1.0")
 
@@ -16,3 +18,6 @@ def read_root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+app.include_router(incidents.router)
+app.include_router(users.router)
